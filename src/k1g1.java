@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,7 +49,37 @@ public class k1g1 {
 	 * ja vcituva i ja vnesuva vo lista od niza od bajti.
 	 */
 	
-	static void deserializeData(String source, List<byte[]> data, long elementLength){
+	static void deserializeData(String source, List<byte[]> data, long elementLength) throws IOException{
+		File izvor = new File(source);
+		byte [] buffer = new byte [(int) elementLength];
+		InputStream in = new FileInputStream(izvor);
+		try{			
+			//int readLen=0, leftToRead=(int) elementLength, offset=0;
+			int i=0;
+			while (true){
+				Integer c = in.read();
+				
+				if (c==-1)
+					break;
+				buffer[i]=c.byteValue();
+				
+				
+				if (i==elementLength-1){
+					i=0;
+					data.add(buffer);
+					buffer=new byte[(int) elementLength];
+					continue;
+				}else {
+					++i;
+				}				
+			}			
+		}
+		finally {
+			if (in!=null){
+				in.close();
+			}
+		}
+		
 		
 	}
 
@@ -60,6 +91,14 @@ public class k1g1 {
 		String to = sc.nextLine();
 		
 		moveWritableTxtFiles(from,to);
+		
+		List<byte[]> data = new ArrayList<>();
+		
+		String deserialize = sc.nextLine();
+		deserializeData(deserialize,data,5);
+		
+		
+		
 		
 		
 		
