@@ -95,13 +95,7 @@ public class k1g1 {
 		List<byte[]> data = new ArrayList<>();
 		
 		String deserialize = sc.nextLine();
-		deserializeData(deserialize,data,5);
-		
-		
-		
-		
-		
-		
+		deserializeData(deserialize,data,5);		
 
 	}
 
